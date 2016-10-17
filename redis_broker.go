@@ -50,6 +50,13 @@ func NewRedisCeleryBroker(host, pass string) *RedisCeleryBroker {
 	}
 }
 
+func NewRedisCeleryBrokerPool(pool *redis.Pool, queueName string) *RedisCeleryBroker {
+	return &RedisCeleryBroker{
+		Pool:      pool,
+		queueName: queueName,
+	}
+}
+
 // SendCeleryMessage sends CeleryMessage to redis queue
 func (cb *RedisCeleryBroker) SendCeleryMessage(message *CeleryMessage) error {
 	jsonBytes, err := json.Marshal(message)
